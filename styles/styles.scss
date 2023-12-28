@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&display=swap');
+
+//Colors
+$color-green-shade: #54E6AF;
+$color-background: #2e364c;
+$color-tablet-background: #121725;
+$color-input-background: #2C344B;
+$color-error: red;
+
+
+// Define breakpoints
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Mixins for responsive design
+@mixin respond-to($breakpoint) {
+    @if $breakpoint ==tablet {
+        @media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint ==desktop {
+        @media (min-width: $breakpoint-desktop) {
+            @content;
+        }
+    }
+}
+
+//flex mixin
+@mixin flex-centering($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+}
+
+//button mixin
+@mixin btn($bgcolor, $size) {
+    margin: 5% 5% 0 5%;
+    background-color: $bgcolor;
+    color: white;
+    font-weight: 600;
+    width: $size;
+    padding: 0.8rem;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Chivo', sans-serif;
+    font-size: 18px;
+    background-image: url("../assets/mobile/image-host.jpg");
+    background-color: $color-background;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:right top;
+    color: white;
+    background-blend-mode: multiply;
+    overflow-x: hidden;
+    text-align: center;
+
+    @include respond-to(tablet) {
+        background-image: url("../assets/tablet/image-host.jpg");
+        background-size: contain;
+        background-color: $color-tablet-background;
+        background-position: right top;
+        background-blend-mode: normal;
+        text-align: left;
+    }
+
+    @include respond-to(desktop) {
+        background-image: url("../assets/desktop/image-host.jpg");
+        background-color: $color-tablet-background;
+        background-size: 60%;
+        background-position: right 5% top 40%;
+        background-blend-mode: normal;
+        text-align: left;
+
+
+    }
+}
+
+nav {
+    @include flex-centering(row);
+    padding: 15%;
+
+    @include respond-to(tablet) {
+        justify-content: flex-start;
+        padding: 5% 5% 20% 5%;
+    }
+
+    @include respond-to(desktop) {
+        justify-content: flex-start;
+        padding: 5% 5% 10% 10%;
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+
+    .hero-text {
+        padding: 5%;
+
+        .white-text {
+            color: white;
+        }
+
+        h1 {
+            color: $color-green-shade;
+            font-size: 1.75rem;
+            font-weight: 100;
+            line-height: 2.5rem;
+            opacity: 0.8;
+        }
+
+        p {
+            font-size: 0.9rem;
+            font-weight: 100;
+            line-height: 1.5rem;
+            padding: 5% 0;
+            opacity: 0.55;
+        }
+
+
+    }
+
+    .clients {
+        order: 1;
+        padding: 5%;
+        @include flex-centering(row);
+        justify-content: space-between;
+
+        img {
+            max-width: 15%;
+        }
+
+    }
+
+    .form {
+        order: 2;
+        padding: 5%;
+        @include flex-centering(column);
+        gap: 15px;
+
+        .email {
+            width: 100%;
+            @include btn(white, 100%);
+            color: black;
+            cursor: auto;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+
+        .submit-btn {
+            @include btn($color-green-shade, 100%);
+            color: black;
+        }
+
+        &.error .error-message {
+            display: block;
+        }
+
+        &.error {
+            border-width: 2px;
+        }
+    }
+
+
+    @include respond-to(tablet) {
+        background-color: $color-tablet-background;
+        margin-right: 20%;
+
+        .hero-text {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+                font-weight: 100;
+                line-height: 1.5rem;
+                padding: 5% 30% 0% 0;
+                opacity: 0.6;
+            }
+        }
+
+        .clients {
+            order: 2;
+        }
+
+        .form {
+            order: 1;
+            align-items: flex-start;
+
+            .input-email-btn {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: 25px;
+                cursor: pointer;
+                gap: 0;
+                border: 1px solid $color-input-background;
+
+                &:hover {
+                    border-color: white;
+                }
+
+            }
+
+            .email {
+                margin: 0; //
+                cursor: auto;
+                background-color: $color-input-background;
+                color: white;
+
+                &:hover {
+                    border: none;
+                    outline: none;
+                    opacity: 1;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .submit-btn {
+                @include btn($color-green-shade, 60%);
+                margin: 0;
+                border: 3px solid $color-input-background;
+                margin-left: -15%;
+                color: black;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+            }
+        }
+    }
+
+    @include respond-to(desktop) {
+        background-color: $color-tablet-background;
+        margin-right: 40%;
+        margin-left: 10%;
+
+        .hero-text {
+
+            h1 {
+                color: $color-green-shade;
+                font-size: 2.5rem; //
+                font-weight: 100;
+                line-height: 3rem; //
+                opacity: 1; //
+            }
+
+            p {
+                font-size: 0.9rem;
+                font-weight: 100;
+                line-height: 1.5rem; //
+                padding: 5% 30% 0 0;
+                opacity: 0.6; //
+            }
+        }
+
+        .clients {
+            padding-bottom: 5%;
+            order: 2;
+        }
+
+        .form {
+            order: 1;
+            align-items: flex-start;
+
+            .input-email-btn {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: 25px;
+                cursor: pointer;
+                gap: 0;
+                border: 1px solid $color-input-background;
+
+
+
+                &:hover {
+                    border-color: white;
+                }
+
+            }
+
+            .email {
+                margin: 0; //
+                cursor: auto;
+                background-color: $color-input-background;
+                color: white;
+
+                &:hover {
+                    border: none;
+                    outline: none;
+                    opacity: 1;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .submit-btn {
+                @include btn($color-green-shade, 60%);
+                margin: 0;
+                border: 3px solid $color-input-background;
+                margin-left: -15%;
+                color: black;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+            }
+        }
+
+    }
+}
+
+.bg-pattern-tablet {
+    display: none;
+
+    @include respond-to(tablet) {
+        order: 3;
+        padding: 5%;
+        display: flex;
+    }
+
+    @include respond-to(desktop) {
+        display: none;
+    }
+
+}
+
+.bg-pattern-desktop {
+    display: none;
+
+    @include respond-to(tablet) {
+        display: none;
+    }
+
+    @include respond-to(desktop) {
+        margin-top: -7.5%;
+        padding: 0 1% 5% 1%;
+        display: flex;
+        justify-content: flex-end;
+
+    }
+
+}
+
+.error-message {
+    color: $color-error;
+    text-align: left;
+    padding-left: 10px;
+    display: none;
+}
